@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function ValidatePage() {
   const [activeTab, setActiveTab] = useState('homeContent');
@@ -450,7 +450,7 @@ export default function ValidatePage() {
           </div>
 
           <div>
-            <div style={{position: 'cover'}}>
+            <div style={{position: 'relative'}}>
               <img src="images/stake.png" className="card-image" alt="Pi Network Globe" style={{width: '105%'}} />
             </div>
           </div>
