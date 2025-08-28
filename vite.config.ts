@@ -1,21 +1,29 @@
 import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { cloudflare } from "@cloudflare/vite-plugin";
-import { mochaPlugins } from "@getmocha/vite-plugins";
+import history from "connect-history-api-fallback";
 
 export default defineConfig({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  plugins: [...mochaPlugins(process.env as any), react(), cloudflare()],
+  plugins: [react()],
   server: {
     allowedHosts: true,
   },
-  build: {
-    chunkSizeWarningLimit: 5000,
+  preview: {
+    port: 4173,
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // 👇 add history fallback for React Router
+  configureServer(server) {
+    server.middlewares.use(
+      history({
+        index: "/index.html",
+        disableDotRule: true,
+      })
+    );
+  },
 });
+

