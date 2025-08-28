@@ -28,7 +28,7 @@ export default function WalletPage() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('/api/messages', {
+      const response = await fetch('http://localhost:3001/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

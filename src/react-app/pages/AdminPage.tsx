@@ -22,15 +22,15 @@ export default function AdminPage() {
   const fetchMessages = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/messages');
+      const response = await fetch('http://localhost:3001/api/messages');
       const rawData = await response.json();
 
-      // 🔑 Map the raw DB rows (id, content, created_at) → Message interface
-      const data: Message[] = rawData.map((row: any) => ({
+      // ✅ use rawData.data.messages
+      const data: Message[] = rawData.data.messages.map((row: any) => ({
         id: row.id,
-        user_identifier: "Anonymous", // or later add user info if you want
-        message_content: row.content,
-        word_count: row.content.trim().split(/\s+/).length,
+        user_identifier: row.user_identifier || "Anonymous",
+        message_content: row.message_content,
+        word_count: row.word_count,
         created_at: row.created_at,
       }));
 
@@ -52,9 +52,11 @@ export default function AdminPage() {
 
   return (
     <div>
-      {/* Keep your existing CSS styles here unchanged */}
       <style>{`/* your CSS unchanged */`}</style>
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
 
       <div className="admin-container">
         <header className="admin-header">
@@ -76,7 +78,9 @@ export default function AdminPage() {
             </div>
             <div className="stat-card">
               <div className="stat-number">
-                {messages.filter(m => new Date(m.created_at).toDateString() === new Date().toDateString()).length}
+                {messages.filter(m =>
+                  new Date(m.created_at).toDateString() === new Date().toDateString()
+                ).length}
               </div>
               <div className="stat-label">Today</div>
             </div>
@@ -90,7 +94,9 @@ export default function AdminPage() {
           ) : error ? (
             <div className="error-container">
               <p>{error}</p>
-              <button className="refresh-button" onClick={fetchMessages}>Try Again</button>
+              <button className="refresh-button" onClick={fetchMessages}>
+                Try Again
+              </button>
             </div>
           ) : (
             <div className="messages-container">

@@ -1,6 +1,6 @@
 const express = require('express');
 const { runQuery, selectQuery, selectOneQuery } = require('../database/database');
-const { validateMessage, validateUserIdentifier } = require('../middleware/validation');
+const { validateMessage } = require('../middleware/validation');
 
 const router = express.Router();
 
@@ -9,10 +9,9 @@ router.post('/', validateMessage, async (req, res) => {
   try {
     const { message, userIdentifier } = req.body;
     
-    // Count words in the message
+    // Count words
     const wordCount = message.trim().split(/\s+/).length;
     
-    // Validate word count (optional: enforce 24-word limit)
     if (wordCount > 24) {
       return res.status(400).json({
         success: false,
@@ -22,22 +21,31 @@ router.post('/', validateMessage, async (req, res) => {
       });
     }
     
-    // Insert message into database
     const result = await runQuery(
       `INSERT INTO messages (user_identifier, message_content, word_count, created_at, updated_at)
        VALUES (?, ?, ?, datetime('now'), datetime('now'))`,
       [userIdentifier || 'anonymous', message, wordCount]
     );
 
-    console.log(`New message saved - ID: ${result.id}, Words: ${wordCount}, User: ${userIdentifier || 'anonymous'}`);
-
     res.status(201).json({ 
       success: true, 
-      message: 'Message sent successfully',
       data: {
-        id: result.id,
-        wordCount,
-        userIdentifier: userIdentifier || 'anonymous'
+        messages: [
+          {
+            id: result.id,
+            user_identifier: userIdentifier || 'anonymous',
+            message_content: message,
+            word_count: wordCount,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        ],
+        pagination: {
+          page: 1,
+          limit: 1,
+          total: 1,
+          totalPages: 1
+        }
       }
     });
   } catch (error) {
@@ -50,19 +58,16 @@ router.post('/', validateMessage, async (req, res) => {
   }
 });
 
-// GET /api/messages - Get all messages (for admin)
+// GET /api/messages - Get all messages (with pagination)
 router.get('/', async (req, res) => {
   try {
-    // Optional query parameters for pagination and filtering
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 50;
     const offset = (page - 1) * limit;
     
-    // Get total count
     const countResult = await selectOneQuery('SELECT COUNT(*) as count FROM messages');
     const totalMessages = countResult.count;
     
-    // Get messages with pagination
     const messages = await selectQuery(
       `SELECT * FROM messages 
        ORDER BY created_at DESC 
@@ -92,7 +97,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/messages/count - Get message count
+// GET /api/messages/count - Get counts
 router.get('/count', async (req, res) => {
   try {
     const result = await selectOneQuery('SELECT COUNT(*) as count FROM messages');
@@ -104,8 +109,17 @@ router.get('/count', async (req, res) => {
     res.json({ 
       success: true, 
       data: {
-        total: result.count,
-        today: todayResult.count
+        messages: [],
+        pagination: {
+          page: 1,
+          limit: 0,
+          total: result.count,
+          totalPages: 1
+        },
+        stats: {
+          total: result.count,
+          today: todayResult.count
+        }
       }
     });
   } catch (error) {
@@ -118,7 +132,7 @@ router.get('/count', async (req, res) => {
   }
 });
 
-// GET /api/messages/:id - Get specific message by ID
+// GET /api/messages/:id - Get message by ID
 router.get('/:id', async (req, res) => {
   try {
     const messageId = parseInt(req.params.id);
@@ -144,7 +158,15 @@ router.get('/:id', async (req, res) => {
 
     res.json({ 
       success: true, 
-      data: message
+      data: {
+        messages: [message],
+        pagination: {
+          page: 1,
+          limit: 1,
+          total: 1,
+          totalPages: 1
+        }
+      }
     });
   } catch (error) {
     console.error('Error fetching message:', error);
@@ -156,7 +178,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/messages/:id - Delete specific message by ID (admin only)
+// DELETE /api/messages/:id - Delete by ID
 router.delete('/:id', async (req, res) => {
   try {
     const messageId = parseInt(req.params.id);
@@ -180,10 +202,17 @@ router.delete('/:id', async (req, res) => {
       });
     }
 
-    console.log(`Message deleted - ID: ${messageId}`);
-
     res.json({ 
       success: true, 
+      data: {
+        messages: [],
+        pagination: {
+          page: 1,
+          limit: 0,
+          total: 0,
+          totalPages: 0
+        }
+      },
       message: 'Message deleted successfully'
     });
   } catch (error) {
