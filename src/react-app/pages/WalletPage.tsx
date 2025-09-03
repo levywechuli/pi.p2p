@@ -18,7 +18,7 @@ export default function WalletPage() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/messages', {
+      const response = await fetch('https://pinetp2p-backend.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -157,9 +157,9 @@ export default function WalletPage() {
       <header className="wallet-header">
         <div className="back-arrow" onClick={handleBack}>←</div>
         <div className="header-content">
-          <img src="images/logo1.png" alt="Logo 1" className="wallet-icon" />
+          <img src="/images/wallet1.png" alt="Logo 1" className="wallet-icon" />
           <span className="header-title">Wallet</span>
-          <img src="images/logo2.png" alt="Logo 2" className="wallet-icon" />
+          <img src="/images/wallet2.png" alt="Logo 2" className="wallet-icon" />
         </div>
       </header>
 

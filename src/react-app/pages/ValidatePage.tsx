@@ -109,7 +109,7 @@ export default function ValidatePage() {
 
         .icon-box:hover {
           transform: scale(1.05);
-          background-color: #f8f0fc;
+          background-color: #FFFFFF;
         }
 
         .icon-box img {
@@ -312,7 +312,7 @@ export default function ValidatePage() {
       <header>
         <div className="back-btn">&#8592;</div>
         <div className="header-title">
-          <img src="images/pihead.png" alt="Pi Icon" />
+          <img src="/images/pihead.png" alt="Pi Icon" />
         </div>
         <div className="header-right">&#9660;</div>
       </header>
@@ -321,7 +321,7 @@ export default function ValidatePage() {
       <div className={`tab-content ${activeTab === 'homeContent' ? 'active' : ''}`}>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <img 
-            src="images/pibrowser.png" 
+            src="/images/pibrowser.png" 
             alt="Loading" 
             width="85%" 
             height="63px" 
@@ -352,51 +352,51 @@ export default function ValidatePage() {
           <main>
             <div className="grid">
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/fireside.jpg" alt="Fireside" /></div>
+                <div className="icon-box"><img src="/images/fireside.png" alt="Fireside" /></div>
                 <div className="icon-label">Fireside</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/wallet.jpg" alt="Wallet" /></div>
+                <div className="icon-box"><img src="/images/wallet.png" alt="Wallet" /></div>
                 <div className="icon-label">Wallet</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/brain.jpg" alt="Brainstorm" /></div>
+                <div className="icon-box"><img src="/images/brain.png" alt="Brainstorm" /></div>
                 <div className="icon-label">Brainstorm</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/minne.jpg" alt="Mine" /></div>
+                <div className="icon-box"><img src="/images/minne.png" alt="Mine" /></div>
                 <div className="icon-label">Mine</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/block.jpg" alt="Blockchain" /></div>
+                <div className="icon-box"><img src="/images/block.png" alt="Blockchain" /></div>
                 <div className="icon-label">Blockchain</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/develop.jpg" alt="Develop" /></div>
+                <div className="icon-box"><img src="/images/develop.png" alt="Develop" /></div>
                 <div className="icon-label">Develop</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/kyc.jpg" alt="KYC" /></div>
+                <div className="icon-box"><img src="/images/kyc.png" alt="KYC" /></div>
                 <div className="icon-label">KYC</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/chats.jpg" alt="Chat" /></div>
+                <div className="icon-box"><img src="/images/chats.png" alt="Chat" /></div>
                 <div className="icon-label">Chat</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/profile.jpg" alt="Profile" /></div>
+                <div className="icon-box"><img src="/images/profile.png" alt="Profile" /></div>
                 <div className="icon-label">Profile</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/domains.png" alt="Domains" /></div>
+                <div className="icon-box"><img src="/images/domains.png" alt="Domains" /></div>
                 <div className="icon-label">Domains</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/unlock.png" alt="App Studio" /></div>
+                <div className="icon-box"><img src="/images/unlock.png" alt="App Studio" /></div>
                 <div className="icon-label">App Studio</div>
               </a>
               <a href="/mine/wallet" className="icon-link">
-                <div className="icon-box"><img src="images/p2p.png" alt="p2p" /></div>
+                <div className="icon-box"><img src="/images/p2p.png" alt="p2p" /></div>
                 <div className="icon-label">P2P</div>
               </a>
             </div>

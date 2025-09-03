@@ -390,7 +390,7 @@ export default function MinePage() {
         <div className="button-wrapper">
           <a href="/mine/validate" className="btn-outline">
             Activate Marketplace
-            <img src="images/p3p.png" alt="P2P" />
+            <img src="/images/p3p.png" alt="P2P" />
           </a>
         </div>
 
@@ -425,7 +425,7 @@ export default function MinePage() {
       {/* Section 3: Features */}
       <section className="features">
         <div className="card animate">
-          <img src="images/mine.png" alt="Mine" />
+          <img src="/images/mine.png" alt="Mine" />
           <h2>Decentralized</h2>     
           <p style={{fontSize: '18px'}}>Secure, immutable, non-counterfeitable and interoperable digital money.</p>
         </div>
