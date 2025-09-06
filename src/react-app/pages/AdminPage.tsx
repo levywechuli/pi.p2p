@@ -23,7 +23,7 @@ export default function AdminPage() {
   const fetchMessages = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('https://pinetp2p-backend.onrender.com/api/admin/dashboard');
+      const response = await fetch('https://pinetp2p-backend.onrender.com/api/admin');
       const rawData = await response.json();
 
       // ✅ use rawData.data.messages
