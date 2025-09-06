@@ -2,7 +2,7 @@
 
 // Always prefer the env var, fallback only for local dev
 export const API_BASE =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"; 
+  import.meta.env.VITE_API_BASE_URL || "https://pinetp2p-backend.onrender.com/api/messages"; 
 // 👆 adjust localhost:5000 to your backend's local dev port
 
 // Example helper
