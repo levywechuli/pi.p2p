@@ -18,7 +18,7 @@ export default function WalletPage() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://pinetp2p-backend.onrender.com', {
+      const response = await fetch('https://pinetp2p-backend.onrender.com/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
