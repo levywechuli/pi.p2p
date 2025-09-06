@@ -408,7 +408,7 @@ export default function ValidatePage() {
 
           <div className="card">
             <div style={{position: 'relative'}}>
-              <img src="images/pitogo.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/category.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
