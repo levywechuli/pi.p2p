@@ -371,7 +371,7 @@ export default function MinePage() {
       <header className="top-header" id="mainHeader">
         <div className="container">
           <div className="logo-area">
-            <img src="/images/pilogo2.png" alt="Pi Logo" className="pi-logo" />
+            <img src="/images/pilogo.png" alt="Pi Logo" className="pi-logo" />
           </div>
           <div className="nav-icons">
             <a href="#"><button className="search-btn"><i className="fas fa-search"></i></button></a>
