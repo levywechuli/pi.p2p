@@ -18,9 +18,26 @@ const PORT = process.env.PORT || 3001;
 // Security middleware
 app.use(helmet());
 
+// ✅ Allowed origins (local + deployed frontend)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://pinetp2p-frontend.onrender.com',
+  process.env.FRONTEND_URL || 'https://pi-p2p-18dl.onrender.com'
+];
+
 // CORS configuration
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://pi-p2p-18dl.onrender.com',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      console.warn(`❌ Blocked CORS request from: ${origin}`);
+      return callback(new Error(`CORS policy: Origin ${origin} not allowed`), false);
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -32,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Request logging middleware
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.headers.origin || 'N/A'}`);
   next();
 });
 
@@ -96,7 +113,7 @@ async function startServer() {
       console.log(`📱 Health check: http://localhost:${PORT}/health`);
       console.log(`💬 Messages API: http://localhost:${PORT}/api/messages`);
       console.log(`👑 Admin API: http://localhost:${PORT}/api/admin`);
-      console.log(`🌐 CORS enabled for: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+      console.log(`🌐 CORS enabled for: ${allowedOrigins.join(', ')}`);
       console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}\n`);
     });
   } catch (error) {
@@ -108,3 +125,4 @@ async function startServer() {
 startServer();
 
 module.exports = app;
+
