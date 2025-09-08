@@ -443,7 +443,7 @@ export default function MinePage() {
 
       {/* Section 4: Download App */}
       <section className="download">
-        <img src="images/minepi.png" alt="Pi Mobile App" />
+        <img src="/images/minepi.png" alt="Pi Mobile App" />
         <section className="left">
           <h2 className="download-heading animate">Download the mobile app to start mining today! Join now.</h2>
           <p className="download-text">
