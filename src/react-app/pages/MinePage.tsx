@@ -414,7 +414,7 @@ export default function MinePage() {
 
       {/* Section 2: Easy Mining */}
       <section className="mine">
-        <img src="images/coinphone.png" alt="Pi Coin" />
+        <img src="/images/coinphone.png" alt="Pi Coin" />
       </section>
       <section className="mining">
         <h2 className="color">Pi makes crypto<br /> mining easy.</h2>
