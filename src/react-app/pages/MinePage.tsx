@@ -473,7 +473,7 @@ export default function MinePage() {
           </div>
         </div>
         <div className="footer-logo">
-          <img src="images/pilogofooter.png" alt="Pi Network Logo" />
+          <img src="/images/pilogofooter.png" alt="Pi Network Logo" />
         </div>
       </footer>
     </div>
