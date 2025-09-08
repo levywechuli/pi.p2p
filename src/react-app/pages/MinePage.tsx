@@ -451,10 +451,10 @@ export default function MinePage() {
           </p>
         </section>
         <a href="https://play.google.com/store" className="google-play">
-          <img src="images/googleplaybadge.png" alt="Get it on Google Play" />
+          <img src="/images/googleplaybadge.png" alt="Get it on Google Play" />
         </a>
         <a href="#">
-          <img src="images/appstorebadge.png" alt="Download on the App Store" className="app-store-badge" />
+          <img src="/images/appstorebadge.png" alt="Download on the App Store" className="app-store-badge" />
         </a>
       </section>
 
