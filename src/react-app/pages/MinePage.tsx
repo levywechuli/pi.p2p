@@ -430,12 +430,12 @@ export default function MinePage() {
           <p style={{fontSize: '18px'}}>Secure, immutable, non-counterfeitable and interoperable digital money.</p>
         </div>
         <div className="card animate">
-          <img src="images/miny.png" alt="Mobile" />
+          <img src="/images/miny.png" alt="Mobile" />
           <h2>Mobile First</h2>
           <p style={{fontSize: '18px'}}>Works on your mobile phone and does not drain your battery.</p>
         </div>
         <div className="card">
-          <img src="images/minu.png" alt="User Friendly" />
+          <img src="/images/minu.png" alt="User Friendly" />
           <h2>User & Planet-Friendly</h2>
           <p style={{fontSize: '18px'}}>Easy to use, secure at scale, without the massive electrical waste.</p>
         </div>
