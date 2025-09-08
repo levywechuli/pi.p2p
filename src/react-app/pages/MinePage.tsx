@@ -267,7 +267,7 @@ export default function MinePage() {
 
         .download img {
           width: 200px;
-          margin: 20px 450px;
+          margin: 20px 10px;
         }
 
         .google-play img {
