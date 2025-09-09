@@ -469,7 +469,7 @@ export default function ValidatePage() {
           <pre style={{fontSize: '15px'}}><b>Top Staked Services</b></pre>
           <div style={{marginTop: '35px'}}>
             <div style={{position: 'relative'}}>
-              <img src="images/mexc.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/mexc.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
@@ -492,14 +492,14 @@ export default function ValidatePage() {
 
           <div className="card" style={{marginTop: '35px'}}>
             <div style={{position: 'relative'}}>
-              <img src="images/piexchange.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/piexchange.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
           <pre style={{fontSize: '15px'}}><b>Web3 Wallets</b></pre>
           <div style={{marginTop: '35px'}}>
             <div style={{position: 'relative'}}>
-              <img src="images/piokx.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/piokx.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
@@ -508,7 +508,7 @@ export default function ValidatePage() {
 
           <div className="card" style={{marginTop: '35px'}}>
             <div style={{position: 'relative'}}>
-              <img src="images/bridge.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/bridge.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
@@ -522,19 +522,19 @@ export default function ValidatePage() {
           className={`nav-item ${activeTab === 'homeContent' ? 'active' : ''}`} 
           onClick={() => switchTab('homeContent')}
         >
-          <img src="images/home.png" alt="Home" />
+          <img src="/images/home.png" alt="Home" />
         </div>
         <div 
           className={`nav-item ${activeTab === 'appsContent' ? 'active' : ''}`} 
           onClick={() => switchTab('appsContent')}
         >
-          <img src="images/apps.png" alt="Apps" />
+          <img src="/images/apps.png" alt="Apps" />
         </div>
         <div 
           className={`nav-item ${activeTab === 'serviceContent' ? 'active' : ''}`} 
           onClick={() => switchTab('serviceContent')}
         >
-          <img src="images/service.png" alt="Service" />
+          <img src="/images/service.png" alt="Service" />
         </div>
       </div>
     </div>
