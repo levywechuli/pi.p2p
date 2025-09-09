@@ -257,8 +257,8 @@ export default function ValidatePage() {
         }
           
         .nav-item img {
-          width: 10px;
-          height: 10px;
+          width: 20px;
+          height: 20px;
           display: block;
           margin: 0 auto;
         }
