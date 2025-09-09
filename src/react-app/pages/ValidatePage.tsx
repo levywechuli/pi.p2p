@@ -414,7 +414,7 @@ export default function ValidatePage() {
 
           <div className="card">
             <div style={{position: 'relative'}}>
-              <img src="images/oke.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/oke.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
@@ -445,13 +445,13 @@ export default function ValidatePage() {
           
           <div className="card">
             <div style={{position: 'relative'}}>
-              <img src="/images/category.png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/category2.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
           <div>
             <div style={{position: 'relative'}}>
-              <img src="images/stake.png" className="card-image" alt="Pi Network Globe" style={{width: '105%'}} />
+              <img src="/images/stake.png" className="card-image" alt="Pi Network Globe" style={{width: '105%'}} />
             </div>
           </div>
           
@@ -460,7 +460,7 @@ export default function ValidatePage() {
 
           <div className="card" style={{marginTop: '35px'}}>
             <div style={{position: 'relative'}}>
-              <img src="images/fruit1 (1).png" className="card-image" alt="Pi Network Globe" />
+              <img src="/images/fruit.png" className="card-image" alt="Pi Network Globe" />
             </div>
           </div>
 
